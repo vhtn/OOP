@@ -1,0 +1,49 @@
+package code_ptit;
+import java.util.*;
+class MatHang{
+    private static int cnt = 1;
+    private String ten, nhom;
+    private int ma;
+    private double mua, ban;
+    public MatHang(String ten, String nhom, double mua, double ban){
+        this.ma = cnt++;
+        this.ten = ten;
+        this.nhom = nhom;
+        this.mua = mua;
+        this.ban = ban;
+    }
+    public int getMa(){
+        return ma;
+    }
+    public double loiNhuan(){
+        return ban - mua;
+    }
+    @Override
+    public String toString(){
+        return ma + " " + ten + " " + nhom + " " + String.format("%.2f", loiNhuan());
+    }
+}
+public class NewClass{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<MatHang> ds = new ArrayList<>(); 
+        int t = sc.nextInt();
+        while(t-- > 0){
+            sc.nextLine();
+            String ten = sc.nextLine();
+            String nhom = sc.nextLine();
+            double mua = sc.nextDouble();
+            double ban = sc.nextDouble();
+            MatHang mh = new MatHang(ten, nhom, mua, ban);
+            ds.add(mh);
+        }
+        Collections.sort(ds, new Comparator<MatHang>(){
+            @Override
+            public int compare(MatHang a, MatHang b){
+                return Double.compare(b.loiNhuan(), a.loiNhuan());
+            }
+        });
+        for(MatHang it : ds)
+                System.out.println(it);
+    }
+}
