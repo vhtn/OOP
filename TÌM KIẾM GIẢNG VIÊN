@@ -1,0 +1,57 @@
+package code_ptit;
+import java.util.*;
+class GiangVien{
+    private String ma, ht, mon;
+    private static int cnt = 1;
+    public GiangVien(String ht, String mon){
+        this.ma = String.format("GV%02d", cnt++);
+        this.ht = ht;
+        this.mon = mon;
+    }
+    public String getMa(){
+        return ma;
+    }
+    public String getHt(){
+        return ht;
+    }
+    public String monHoc(){
+        String[] w = mon.toUpperCase().trim().split("\\s+");
+        String res = "";
+        for(String x : w)
+            res += x.charAt(0);
+        return res;
+    }
+    public String ten(){
+        String[] w = ht.trim().split("\\s+");
+        return w[w.length - 1];
+    }
+    @Override
+    public String toString(){
+        return ma + " " + ht +  " " + monHoc();
+    }
+}
+public class NewClass{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<GiangVien> ds = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        while(t-- > 0){
+            String ht = sc.nextLine();
+            String mh = sc.nextLine();
+            GiangVien gv = new GiangVien(ht, mh);
+            ds.add(gv);
+        }
+        int k = sc.nextInt();
+        sc.nextLine();
+        while(k-- > 0){
+            String n = sc.nextLine();
+            System.out.println("DANH SACH GIANG VIEN THEO TU KHOA " + n + ":");
+            for(GiangVien it : ds){
+                String tmp = it.getHt().toLowerCase();
+                if(tmp.indexOf(n.toLowerCase()) != -1)
+                    System.out.println(it);
+            }
+        }
+    }
+}
