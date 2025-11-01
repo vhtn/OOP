@@ -1,0 +1,42 @@
+package code_ptit;
+import java.util.*;
+class SinhVien{
+    private String ma, ht, lop, email;
+    public SinhVien(String ma, String ht, String lop, String email){
+        this.ma = ma;
+        this.ht = ht;
+        this.lop = lop;
+        this.email = email;
+    }
+    public String getMa(){
+        return ma;
+    }
+    @Override
+    public String toString(){
+        return ma + " " + ht + " " + lop + " " + email;
+    }
+}
+public class NewClass{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<SinhVien> ds = new ArrayList<>();
+        while(sc.hasNextLine()){
+            String ma = sc.nextLine();
+            if (ma.isEmpty()) break; 
+            String ht = sc.nextLine();
+            String lop = sc.nextLine();
+            String email = sc.nextLine();
+            SinhVien sv = new SinhVien(ma, ht, lop, email);
+            ds.add(sv);
+        }
+        Collections.sort(ds, new Comparator<SinhVien>(){
+            @Override
+            public int compare(SinhVien a, SinhVien b){
+                return a.getMa().compareTo(b.getMa());
+            }
+        });
+        for(SinhVien it : ds){
+            System.out.println(it);
+        }
+    }
+}
