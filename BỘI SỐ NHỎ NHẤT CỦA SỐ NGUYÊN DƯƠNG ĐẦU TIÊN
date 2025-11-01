@@ -1,6 +1,6 @@
 package code_ptit;
 import java.util.*;
-public class J02008_boisonhonhatcuansonguyenuongdautien {
+public class NewClass {
     private static long uc(long a, long b){
         if(b == 0) return a;
         return uc(b, a % b);
