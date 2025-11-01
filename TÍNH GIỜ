@@ -41,8 +41,8 @@ public class NewClass{
             String ten = sc.nextLine();
             String vao = sc.nextLine();
             String ra = sc.nextLine();
-            Time mh = new Time(ma, ten, vao, ra);
-            ds.add(mh);
+            Time time = new Time(ma, ten, vao, ra);
+            ds.add(time);
         }
         Collections.sort(ds, new Comparator<Time>(){
             @Override
