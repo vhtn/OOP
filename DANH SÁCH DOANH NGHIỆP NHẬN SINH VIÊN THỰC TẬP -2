@@ -1,0 +1,53 @@
+package code_ptit;
+import java.util.*;
+class DoanhNghiep{
+    private String ma, ten;
+    private int sl;
+    public DoanhNghiep(String ma, String ten, int sl){
+        this.ma = ma;
+        this.ten = ten;
+        this.sl = sl;
+    }
+    public String getMa(){
+        return ma;
+    }
+    public int getSl(){
+        return sl;
+    }
+    @Override
+    public String toString(){
+        return ma + " " + ten + " " + sl;
+    }
+}
+public class NewClass{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<DoanhNghiep> ds = new ArrayList<>();
+        int t= sc.nextInt();
+        while(t-- > 0){
+            sc.nextLine();
+            String ma = sc.nextLine();
+            String ten = sc.nextLine();
+            int sl = sc.nextInt();
+            DoanhNghiep dn = new DoanhNghiep(ma, ten, sl);
+            ds.add(dn);
+        }
+        Collections.sort(ds, new Comparator<DoanhNghiep>(){
+            @Override
+            public int compare(DoanhNghiep a, DoanhNghiep b){
+                if(a.getSl() != b.getSl())
+                    return Integer.compare(b.getSl(), a.getSl());
+                return a.getMa().compareTo(b.getMa()); 
+            }
+        });
+        int k = sc.nextInt();
+        while(k-- > 0){
+            int l = sc.nextInt(), r = sc.nextInt();
+            System.out.println("DANH SACH DOANH NGHIEP NHAN TU " + l + " DEN " + r + " SINH VIEN:");
+            for(DoanhNghiep it : ds)
+                if(it.getSl() >= l && it.getSl() <= r)
+                    System.out.println(it);
+        }
+        
+    }
+}
