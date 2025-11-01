@@ -1,0 +1,39 @@
+package code_ptit;
+import java.util.*;
+class NhanVien{
+    private static int cnt = 1;
+    private String ma, ht, gt, ns, dc, mst, nk;
+    public NhanVien(String ht, String gt, String ns, String dc, String mst, String nk){
+        this.ma = String.format("%05d", cnt++);
+        this.ht = ht;
+        this.gt = gt;
+        this.ns = ns;
+        this.dc = dc;
+        this.mst = mst;
+        this.nk = nk;
+    }
+    @Override
+    public String toString(){
+        return ma + ' ' + ht + ' ' + gt + ' ' + ns + ' ' + dc + ' ' + mst + ' ' + nk;
+    }
+}
+public class NewClass{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<NhanVien> ds = new ArrayList<>(); 
+        int t = sc.nextInt();
+        sc.nextLine();
+        while(t-- > 0){
+            String ht = sc.nextLine();
+            String gt = sc.nextLine();
+            String ns = sc.nextLine();
+            String dc = sc.nextLine();
+            String mst = sc.nextLine();
+            String nk = sc.nextLine();
+            NhanVien nv = new NhanVien(ht, gt, ns, dc, mst, nk);
+            ds.add(nv);
+        }
+        for(NhanVien it : ds)
+            System.out.println(it);
+    }
+}
