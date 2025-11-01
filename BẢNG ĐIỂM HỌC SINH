@@ -1,0 +1,78 @@
+package code_ptit;
+import java.util.*;
+class HocSinh{
+    private static int cnt = 1;
+    private String ma, ht;
+    private double d1, d2, d3, d4, d5, d6, d7, d8, d9, d10;
+    public HocSinh(String ht, double d1, double d2, double d3, double d4, double d5, double d6, double d7, double d8, double d9, double d10){
+        this.ma = String.format("HS%02d", cnt++);
+        this.ht = ht;
+        this.d1 = d1;
+        this.d2 = d2;
+        this.d3 = d3;
+        this.d4 = d4;
+        this.d5 = d5;
+        this.d6 = d6;
+        this.d7 = d7;
+        this.d8 = d8;
+        this.d9 = d9;
+        this.d10 = d10;
+    }
+    public String getMa(){
+        return ma;
+    }
+    public double tb(){
+        double res = (d1 * 2 + d2 * 2 + d3 + d4 + d5 + d6 + d7 + d8 + d9 + d10) / 12.0;
+        return Math.round(res * 10.0)/10.0;
+    }
+    public String xepHang(){
+        if(tb() >= 9)
+            return "XUAT SAC";
+        if(tb() >= 8)
+            return "GIOI";
+        if(tb() >= 7)
+            return "KHA";
+        if(tb() >= 5)
+            return "TB";
+        return "YEU";
+    }
+    @Override
+    public String toString(){
+        return ma + " " + ht + " " + String.format("%.1f",tb()) + " " + xepHang();
+    }
+}
+public class NewClass{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<HocSinh> ds = new ArrayList<>();
+        int t = sc.nextInt();
+        while(t-- > 0){
+            sc.nextLine();
+            String ht = sc.nextLine();
+            double d1 = sc.nextDouble();
+            double d2 = sc.nextDouble();
+            double d3 = sc.nextDouble();
+            double d4 = sc.nextDouble();
+            double d5 = sc.nextDouble();
+            double d6 = sc.nextDouble();
+            double d7 = sc.nextDouble();
+            double d8 = sc.nextDouble();
+            double d9 = sc.nextDouble();
+            double d10 = sc.nextDouble();
+            HocSinh hs = new HocSinh(ht, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10);
+            ds.add(hs);
+        }
+        Collections.sort(ds, new Comparator<HocSinh>(){
+            @Override
+            public int compare(HocSinh a, HocSinh b){
+                if(a.tb() != b.tb())
+                    return Double.compare(b.tb(), a.tb());
+                return a.getMa().compareTo(b.getMa());
+            }
+        });
+        for(HocSinh it : ds)
+            System.out.println(it);
+    }
+}
+
+
