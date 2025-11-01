@@ -1,0 +1,48 @@
+package code_ptit;
+import java.util.*;
+class BangDiem{
+    private static int cnt = 1;
+    private String ma, ten, lop;
+    private double d1, d2, d3;
+    public BangDiem(String ma, String ten, String lop, double d1, double d2, double d3){
+        this.ma = ma;
+        this.ten = ten;
+        this.lop = lop;
+        this.d1 = d1;
+        this.d2 = d2;
+        this.d3 = d3;
+    }
+    public String getTen(){
+        return ten;
+    }
+    @Override
+    public String toString(){
+        return cnt++ + " " + ma + " " + ten + " " + lop + " " + String.format("%.1f", d1) + " " + String.format("%.1f", d2) + " " + String.format("%.1f", d3);
+    }
+}
+public class NewClass{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<BangDiem> ds = new ArrayList<>();
+        int t = sc.nextInt();
+        while(t-- > 0){
+            sc.nextLine();
+            String ma = sc.nextLine();
+            String ten = sc.nextLine();
+            String lop = sc.nextLine();
+            double d1 = sc.nextDouble();
+            double d2 = sc.nextDouble();
+            double d3 = sc.nextDouble();
+            BangDiem bd = new BangDiem(ma, ten, lop, d1, d2, d3);
+            ds.add(bd);
+        }
+        Collections.sort(ds, new Comparator<BangDiem>(){
+            @Override
+            public int compare(BangDiem a, BangDiem b){
+                return a.getTen().compareTo(b.getTen());
+            }
+        });
+        for(BangDiem it : ds)
+            System.out.println(it);
+    }
+}
