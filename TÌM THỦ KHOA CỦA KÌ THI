@@ -1,0 +1,55 @@
+package code_ptit;
+import java.util.*;
+class ThiSinh{
+    private static int cnt = 1;
+    private String ht, ns;
+    private int ma;
+    private double d1, d2, d3;
+    public ThiSinh(String ht, String ns, double d1, double d2, double d3){
+        this.ma = cnt++;
+        this.ht = ht;
+        this.ns = ns;
+        this.d1 = d1;
+        this.d2 = d2;
+        this.d3 = d3;
+    }
+    public int getMa(){
+        return ma;
+    }
+    public double tong(){
+        return d1 + d2 + d3;
+    }
+    @Override
+    public String toString(){
+        return ma + " " + ht + " " + ns + " " + String.format("%.1f", tong());
+    }
+}
+public class NewClass{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<ThiSinh> ds = new ArrayList<>(); 
+        int t = sc.nextInt();
+        while(t-- > 0){
+            sc.nextLine();
+            String ht = sc.nextLine();
+            String ns = sc.nextLine();
+            double d1 = sc.nextDouble();
+            double d2 = sc.nextDouble();
+            double d3 = sc.nextDouble();
+            ThiSinh ts = new ThiSinh(ht, ns, d1, d2, d3);
+            ds.add(ts);
+        }
+        Collections.sort(ds, new Comparator<ThiSinh>(){
+            @Override
+            public int compare(ThiSinh a, ThiSinh b){
+                if(a.tong() != b.tong())
+                    return Double.compare(b.tong(), a.tong());
+                return Integer.compare(a.getMa(), b.getMa());
+            }
+        });
+        double res = ds.get(0).tong();
+        for(ThiSinh it : ds)
+            if(it.tong() == res)
+                System.out.println(it);
+    }
+}
