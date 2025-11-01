@@ -1,0 +1,55 @@
+package code_ptit;
+import java.util.*;
+class SinhVien{
+    private static int cnt = 1;
+    private String ma, ht, lop, ns;
+    private double gpa;
+    public SinhVien(String ht, String lop, String ns, double gpa){
+        this.ma = String.format("B20DCCN%03d", cnt++);
+        this.ht = ht;
+        this.lop = lop;
+        this.ns = ns;
+        this.gpa = gpa;
+    }
+    public String hoTen(){
+        String[] w = ht.toLowerCase().trim().split("\\s+");
+        String res = "";
+        for(String x : w){
+            res += x.substring(0,1).toUpperCase() + x.substring(1) + ' ';
+        }
+        return res;
+    }
+    public String ngaySinh(){
+        int pos1 = ns.indexOf("/");
+        int pos2 = ns.lastIndexOf("/");
+        String ngay = ns.substring(0, pos1);
+        String thang = ns.substring(pos1+1, pos2);
+        String nam = ns.substring(pos2+1);
+        if(ngay.length() < 2){
+            ngay = "0" + ngay;
+        }
+        if(thang.length() < 2){
+            thang = "0" + thang;
+        }
+        return ngay + '/' + thang + '/' + nam;
+    }
+    @Override
+    public String toString(){
+        return ma + " " + hoTen() + " " + lop + " " + ngaySinh() + " " + String.format("%.2f", gpa);
+    }
+}
+public class NewClass{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-- > 0){
+            sc.nextLine();
+            String ht = sc.nextLine();
+            String lop = sc.nextLine();
+            String ns = sc.nextLine();
+            double gpa = sc.nextDouble();
+            SinhVien sv = new SinhVien(ht,lop, ns, gpa);
+            System.out.println(sv);
+        }
+    }
+}
