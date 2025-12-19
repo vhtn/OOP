@@ -1,0 +1,53 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class Submit{
+        private String ten;
+        private int c, t;
+        public Submit(String ten, int c, int t){
+            this.ten = ten;
+            this.t = t;
+            this.c = c;
+        }
+        public String getTen() {
+            return ten;
+        }
+        public int getC() {
+            return c;
+        }
+        public int getT() {
+            return t;
+        }
+        @Override
+        public String toString(){
+            return ten + ' ' + c + ' ' + t;
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Submit> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        while(n-- > 0){
+            String ten = sc.nextLine();
+            int c = sc.nextInt();
+            int t = sc.nextInt();
+            sc.nextLine();
+            Submit sub = new Submit(ten, c, t);
+            ds.add(sub);
+        }
+        Collections.sort(ds, new Comparator<Submit>(){
+            @Override
+            public int compare(Submit a, Submit b){
+                if(a.getC() != b.getC())
+                    return b.getC() - a.getC();
+                if(a.getT() != b.getT())
+                    return a.getT() - b.getT();
+                return a.getTen().compareTo(b.getTen());
+            }
+        });
+        for(Submit it : ds){
+            System.out.println(it);
+        }
+    }
+}
