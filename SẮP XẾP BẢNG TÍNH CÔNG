@@ -1,0 +1,68 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class NhanVien{
+        private String ma, ht, cv;
+        private int luongNgay, cong;
+        public NhanVien(String ma, String ht, int luongNgay, int cong, String cv){
+            this.ma = ma;
+            this.ht = ht;
+            this.luongNgay = luongNgay;
+            this.cong = cong;
+            this.cv = cv;
+        }
+        public int tienLuong(){
+            return luongNgay*cong;
+        }
+        public int thuong(){
+            if(cong >= 25){
+                return tienLuong()/5;
+            }
+            if(cong >= 22){
+                return tienLuong()/10;
+            }
+            return 0;
+        }
+        public int phuCap(){
+            if(cv.equals("GD"))
+                return 250000;
+            if(cv.equals("PGD"))
+                return 200000;
+            if(cv.equals("TP"))
+                return 180000;
+            return 150000;
+        }
+        public int thuNhap(){
+            return tienLuong() + thuong() + phuCap();
+        }
+        @Override
+        public String toString(){
+            return ma + ' ' + ht + ' ' + tienLuong() + ' ' + thuong() + ' ' + phuCap() + ' ' + thuNhap();
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<NhanVien> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for(int i = 0; i < n; i++){
+            String ma = String.format("NV%02d", i+1);
+            String ht = sc.nextLine();
+            int luong = sc.nextInt();
+            int cong = sc.nextInt();
+            sc.nextLine();
+            String cv = sc.nextLine();
+            NhanVien nv = new NhanVien(ma, ht, luong, cong, cv);
+            ds.add(nv);
+        }
+        Collections.sort(ds, new Comparator<NhanVien>(){
+            @Override
+            public int compare(NhanVien a, NhanVien b){
+                return b.thuNhap() - a.thuNhap();
+            }
+        });
+        for(NhanVien it : ds){
+            System.out.println(it);
+        }
+    }
+}
