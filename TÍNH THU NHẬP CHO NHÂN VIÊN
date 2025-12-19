@@ -1,0 +1,60 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class NhanVien{
+        private String ma, ht, cv;
+        private int luongcb, cong;
+        public NhanVien(String ma, String ht, String cv, int luongcb, int cong){
+            this.ma = ma;
+            this.ht = ht;
+            this.cv = cv;
+            this.luongcb = luongcb;
+            this.cong = cong;
+        }
+        public int phuCap(){
+            if(cv.equals("GD"))
+                return 500;
+            if(cv.equals("PGD"))
+                return 400;
+            if(cv.equals("TP"))
+                return 300;
+            if(cv.equals("KT"))
+                return 250;
+            return 100;
+        }
+        public int luong(){
+            return luongcb*cong;
+        }
+        public int tamUng(){
+            double tmp = (phuCap() + luong())*2.0/3;
+            if(tmp < 25000)
+                return (int)Math.round(tmp/1000)*1000;
+            return 25000;
+        }
+        public int conLai(){
+            return luong() + phuCap() - tamUng();
+        }
+        @Override
+        public String toString(){
+            return ma + ' ' + ht + ' ' + phuCap() + ' ' + luong() + ' ' + tamUng() + ' ' + conLai();
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<NhanVien> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for(int i = 0; i < n; i++){
+            String ma = String.format("NV%02d", i+1);
+            String ht = sc.nextLine();
+            String cv = sc.nextLine();
+            int luonggcb = sc.nextInt();
+            int cong = sc.nextInt();
+            sc.nextLine();
+            NhanVien nv = new NhanVien(ma, ht, cv, luonggcb, cong);
+            ds.add(nv);
+        }
+        for(NhanVien i : ds)
+            System.out.println(i);
+    }
+}
