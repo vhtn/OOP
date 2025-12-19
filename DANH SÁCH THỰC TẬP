@@ -1,0 +1,76 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class ThucTap{
+        private int ma;
+        private String msv, ht, lop, email, dn;
+        public ThucTap(int ma, String msv, String ht, String lop, String email, String dn){
+            this.ma = ma;
+            this.msv = msv;
+            this.ht = ht;
+            this.lop= lop;
+            this.email = email;
+            this.dn = dn;
+        }
+        public int getMa() {
+            return ma;
+        }
+        public String getMsv() {
+            return msv;
+        }
+        public String getHt() {
+            return ht;
+        }
+        public String getLop() {
+            return lop;
+        }
+        public String getEmail() {
+            return email;
+        }
+        public String getDn() {
+            return dn;
+        }   
+        @Override
+        public String toString(){
+            return ma + " " + msv + " " + ht + " " + lop + " " + email + " " + dn;
+        } 
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<ThucTap> ds = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        for(int i = 0; i < t; i++){
+            int ma = i + 1;
+            String msv = sc.nextLine().trim();
+            String ten = sc.nextLine().trim();
+            String lop = sc.nextLine().trim();
+            String email = sc.nextLine().trim();
+            String dn = sc.nextLine().trim();
+            ThucTap tt = new ThucTap(ma, msv, ten, lop, email, dn);
+            ds.add(tt);
+        }
+        int n = sc.nextInt();
+        sc.nextLine();
+        while(n-- > 0){
+            ArrayList<ThucTap> tmp = new ArrayList<>();
+            String s = sc.nextLine();
+            for (ThucTap it: ds){
+                if(s.equals(it.getDn())){
+                  tmp.add(it);
+                }
+            }
+            Collections.sort(tmp, new Comparator<ThucTap>(){
+                @Override
+                public int compare(ThucTap a, ThucTap b){
+                    return a.msv.compareTo(b.msv);
+                }
+            });
+            for(ThucTap it : tmp){
+                System.out.println(it);
+            }
+        }
+        
+    }
+}
+
