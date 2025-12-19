@@ -1,0 +1,58 @@
+package code_ptit;
+import java.util.*;
+public class NewClass1{
+    public static class Tuoi{
+        private String name;
+        private int d, m, y;
+        public Tuoi(String name, int d, int m, int y){
+            this.name = name;
+            this.d = d;
+            this.m = m;
+            this.y = y;
+        }
+        public String getName() {
+            return name;
+        }
+        public int getD() {
+            return d;
+        }
+        public int getM() {
+            return m;
+        }
+        public int getY() {
+            return y;
+        }
+        @Override 
+        public String toString(){
+            return name;
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Tuoi> ds = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        while(t-- > 0){
+            String s = sc.nextLine();
+            String[] part = s.split(" ");
+            String name = part[0];
+            String ns = part[1];
+            String[] date = ns.split("/");
+            int d = Integer.parseInt(date[0]);
+            int m = Integer.parseInt(date[1]);
+            int y = Integer.parseInt(date[2]);
+            Tuoi tu = new Tuoi(name, d, m, y);
+            ds.add(tu);
+        }
+        Collections.sort(ds, new Comparator<Tuoi>(){
+            @Override
+            public int compare(Tuoi a, Tuoi b){
+                if(a.y != b.y) return a.y - b.y;
+                if(a.m != b.m) return a.m - b.m;
+                return a.d - b.d;
+            }
+        });
+        System.out.println(ds.get(ds.size() - 1));
+        System.out.println(ds.get(0));
+    }
+}
