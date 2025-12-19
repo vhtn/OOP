@@ -1,0 +1,68 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class HangHoa{
+        private String ma, ten, dv;
+        private int gia, sl;
+        public HangHoa(String ma, String ten, String dv, int gia, int sl){
+            this.ma = ma;
+            this.ten = ten;
+            this.dv = dv;
+            this.gia = gia;
+            this.sl = sl;
+        }
+        public String getMa() {
+            return ma;
+        }
+        public String getTen() {
+            return ten;
+        }
+        public String getDv() {
+            return dv;
+        }
+        public int getGia() {
+            return gia;
+        }
+        public int getSl() {
+            return sl;
+        }
+        public int phiVanChuyen(){
+            return (int)Math.round(gia * sl / 20);
+        }
+        public int thanhTien(){
+            return (int) Math.round(gia * sl + phiVanChuyen());
+        }
+        public int giaBan(){
+            double g = (thanhTien() + thanhTien()/50)/sl;
+            return (int) Math.ceil(g/100.0) * 100;
+        }
+        @Override
+        public String toString(){
+            return ma + ' ' + ten + ' ' + dv + ' ' + phiVanChuyen() + ' ' + thanhTien() + ' ' + giaBan();
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        ArrayList<HangHoa> ds = new ArrayList<>();
+        for(int  i = 0; i < t; i++){
+            sc.nextLine();
+            String ma = String.format("MH%02d", i+1);
+            String ten = sc.nextLine();
+            String dv = sc.nextLine();
+            int gia = sc.nextInt();
+            int sl = sc.nextInt();
+            HangHoa h = new HangHoa(ma, ten, dv, gia, sl);
+            ds.add(h);
+        }
+        Collections.sort(ds, new Comparator<HangHoa>(){
+            @Override
+            public int compare(HangHoa a, HangHoa b){
+                return Integer.compare(b.giaBan(), a.giaBan());
+            }
+        });
+        for(HangHoa it : ds)
+            System.out.println(it);
+    }
+}
+
