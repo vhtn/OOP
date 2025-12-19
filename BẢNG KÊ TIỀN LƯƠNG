@@ -1,0 +1,67 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class NhanVien{
+        private String ma, ht, chucVu;
+        private int luongNgay, cong;
+        public NhanVien(String ma, String ht, int luongNgay, int cong, String chucVu){
+            this.ma = ma;
+            this.ht = ht;
+            this.luongNgay = luongNgay;
+            this.cong = cong;
+            this.chucVu = chucVu;
+        }
+        public int luongThang(){
+            return luongNgay*cong;
+        }
+        public int thuong(){
+            if (cong >= 25){
+                return luongThang() / 5;
+            }
+            if(cong >= 22){
+                return luongThang() / 10;
+            }
+            return 0;
+        }
+        public int phuCap(){
+            if(chucVu.equals("GD"))
+                return 250000;
+            if(chucVu.equals("PGD"))
+                return 200000;
+            if(chucVu.equals("TP"))
+                return 180000;
+            if(chucVu.equals("NV"))
+                return 150000;
+            return 0;
+        }
+        public int thucLinh(){
+            return luongThang() + thuong() + phuCap();
+        }
+        @Override
+        public String toString(){
+            return ma + ' ' + ht + ' ' + luongThang() + ' ' + thuong() + ' ' + phuCap() + ' ' + thucLinh();
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<NhanVien> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for(int i = 0; i < n; i++){
+            String ma = String.format("NV%02d", i+1);
+            String ht = sc.nextLine();
+            int luongNgay = sc.nextInt();
+            int cong = sc.nextInt();
+            sc.nextLine();
+            String chuVu = sc.nextLine();
+            NhanVien nv = new NhanVien(ma, ht, luongNgay, cong, chuVu);
+            ds.add(nv);
+        }
+        int s = 0;
+        for (NhanVien it:ds){
+            System.out.println(it);
+            s += it.thucLinh();
+        }
+        System.out.println("Tong chi phi tien luong: " + s);
+    }
+}
