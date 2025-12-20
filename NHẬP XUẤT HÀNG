@@ -1,0 +1,57 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class DienTu{
+        String ma, ten, xl;
+        long tongNhap, tongXuat;
+        public DienTu(String ma, String ten, String xl){
+            this.ma = ma;
+            this.ten = ten;
+            this.xl = xl;
+            this.tongNhap = 0;
+            this.tongXuat= 0;
+        }
+        public int lai(){
+            if(xl.equals("A"))
+                return 8;
+            if(xl.equals("B"))
+                return 5;
+            if(xl.equals("C"))
+                return 2;
+            return 0;
+        }
+        @Override
+        public String toString(){
+            return ma + ' ' + ten + ' ' + tongNhap + ' ' + tongXuat;
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<DienTu> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        while(n-- > 0){
+            String ma = sc.nextLine();
+            String ten = sc.nextLine();
+            String xl = sc.nextLine();
+            ds.add(new DienTu(ma, ten, xl));
+        }
+        int m = sc.nextInt();
+        sc.nextLine();
+        while(m-- > 0){
+            String ma = sc.next();
+            int nhap = sc.nextInt();
+            int dgnhap = sc.nextInt();
+            int xuat = sc.nextInt();
+            sc.nextLine();
+            for(int i = 0; i < ds.size(); i++){
+                if(ma.equals(ds.get(i).ma)){
+                    long tongNhap = nhap * dgnhap;
+                    long tmp = dgnhap * xuat;
+                    long tongXuat = tmp + (long)Math.round(tmp / 100.0 * ds.get(i).lai());
+                    System.out.println(ds.get(i).ma + " " + ds.get(i).ten + " " + tongNhap + " " + tongXuat);
+                }
+            }
+        }
+    }
+}
