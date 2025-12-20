@@ -1,0 +1,75 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class HangHoa{
+        private String ma;
+        private int sl;
+        public HangHoa(String ma, int sl){
+            this.ma = ma;
+            this.sl = sl;
+        }
+        public int soLuongXuatHang(){
+            char c = ma.charAt(0);
+            if(c == 'A'){
+                return (int)Math.round(sl * 0.6);
+            }
+            if(c == 'B'){
+                return (int)Math.round(sl * 0.7);
+            }
+            return 0;
+        }
+        public int donGia(){
+            char c = ma.charAt(ma.length() - 1);
+            if(c == 'Y')
+                return 110000;
+            if(c == 'N')
+                return 135000;
+            return 0;
+        }
+        public long tien(){
+            return (long)soLuongXuatHang() * donGia();
+        }
+        public long thue(){
+            char d = ma.charAt(0);
+            char c = ma.charAt(ma.length() - 1);
+            if (d == 'A'&& c == 'Y')
+                return tien() * 8 / 100;
+            if (d == 'A'&& c == 'N')
+                return tien() * 11 / 100;
+            if (d == 'B'&& c == 'Y')
+                return tien() * 17 / 100;
+            if (d == 'B'&& c == 'N')
+                return tien() * 22 / 100;
+            return 0;
+        }
+        @Override
+        public String toString(){
+            return ma + ' ' + sl + ' ' + soLuongXuatHang() + ' ' + donGia() + ' ' + tien() + ' ' + thue();
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<HangHoa> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        while(n-- > 0){
+            String ma = sc.nextLine();
+            int sl = sc.nextInt();
+            sc.nextLine();
+            HangHoa h = new HangHoa(ma, sl);
+            ds.add(h);
+        }
+        Collections.sort(ds, new Comparator<HangHoa>(){
+            @Override
+            public int compare(HangHoa a, HangHoa b){
+                return Long.compare(b.thue(), a.thue());
+            }
+        });
+        char c = sc.next().charAt(0);
+        for(HangHoa i : ds){
+            char x = i.ma.charAt(0);
+            if(x == c)
+                System.out.println(i);
+        }
+    }
+}
