@@ -1,0 +1,60 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class HangHoa{
+        private String ma, ten;
+        private int sl, dg;
+        public HangHoa(String ma, String ten, int sl, int dg){
+            this.ma = ma;
+            this.ten = ten;
+            this.sl = sl;
+            this.dg = dg;
+        }
+        public int tienChietKhau(){
+            if(sl > 10){
+                return sl * dg / 20;
+            }
+            if(sl >= 8){
+                return sl * dg / 50;
+            }
+            if(sl >= 5){
+                return sl * dg / 100;
+            }
+            return 0;
+        }
+        public int thanhTien(){
+            return sl * dg - tienChietKhau();
+        }
+        @Override
+        public String toString(){
+            return ma + ' ' + ten + ' ' + tienChietKhau() + ' ' + thanhTien();
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<HangHoa> ds = new ArrayList<>();
+        Map<String, Integer> cnt = new HashMap<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        while(n-- > 0){
+            String s = sc.nextLine();
+            int sl = sc.nextInt();
+            int dg = sc.nextInt();
+            sc.nextLine();
+            String[] tu = s.trim().split("\\s+");
+            String ma = "";
+            for(String t : tu){
+                ma += Character.toUpperCase(t.charAt(0));
+                if(ma.length() == 2)
+                    break;
+            }
+            int stt = cnt.getOrDefault(ma, 0) + 1;
+            cnt.put(ma, stt);
+            ma = ma + String.format("%02d", stt);
+            HangHoa h = new HangHoa(ma, s, sl, dg);
+            ds.add(h);
+        }
+        for(HangHoa i: ds)
+            System.out.println(i);
+    }
+}
