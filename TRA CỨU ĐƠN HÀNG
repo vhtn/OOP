@@ -1,0 +1,48 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class HangHoa{
+        String ten, ma;
+        int dg, sl;
+        public HangHoa(String ten, String ma, int dg, int sl){
+            this.ma = ma;
+            this.ten = ten;
+            this.dg =dg;
+            this.sl = sl;
+        }
+        public String stt(){
+            return ma.substring(1, 4);
+        }
+        public int giamGia(){
+            char x = ma.charAt(4);
+            if (x == '1')
+                return (int) (dg * sl * 0.5);
+            if (x == '2')
+                return (int) (dg * sl * 0.3);
+            return 0;
+        }
+        public int thanhTien(){
+            return sl * dg - giamGia();
+        }
+        @Override
+        public String toString(){
+            return ten + " " + ma + " " + stt() + " " + giamGia() + " " + thanhTien();
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        sc.nextLine();
+        ArrayList<HangHoa> ds = new ArrayList<>();
+        while(n-- > 0){
+            String ten = sc.nextLine();
+            String ma = sc.nextLine();
+            int dg = sc.nextInt();
+            int sl = sc.nextInt();
+            sc.nextLine();
+            ds.add(new HangHoa(ten, ma, dg, sl));
+        }
+        for(HangHoa h : ds)
+            System.out.println(h);
+    }    
+}
