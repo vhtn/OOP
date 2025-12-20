@@ -1,0 +1,63 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class GiaoVien{
+        String ma, ten;
+        int luong;
+        public GiaoVien(String ma, String ten, int luong){
+            this.ma = ma;
+            this.ten = ten;
+            this.luong = luong;
+        }
+        public int phuCap(){
+            String cv = ma.substring(0,2);
+            if(cv.equals("HT"))
+                return 2000000;
+            if(cv.equals("HP"))
+                return 900000;
+            return 500000;
+        }
+        public int bac(){
+            int b = (ma.charAt(2) - '0') * 10 + (ma.charAt(3) - '0');
+            return b;
+        }
+        public int thuNhap(){
+            return luong * bac() + phuCap();
+        }
+        @Override
+        public String toString(){
+            return ma + ' ' + ten + ' ' + bac() + ' ' + phuCap() + ' ' + thuNhap();
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<GiaoVien> ds = new ArrayList<>();
+        Map<String, Integer> m = new HashMap<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        int ht = 0;
+        int hp = 0;
+        while(n-- > 0){
+            String s = sc.nextLine();
+            String ten = sc.nextLine();
+            int luong = sc.nextInt();
+            sc.nextLine();
+            if(s.substring(0, 2).equals("HT")){
+                ht += 1;
+                if(ht > 1)
+                    continue;
+                ds.add(new GiaoVien(s, ten, luong));
+            }
+            else if(s.substring(0, 2).equals("HP")){
+                hp += 1;
+                if(hp > 2)
+                    continue;
+                ds.add(new GiaoVien(s, ten, luong));
+            }
+            else
+                ds.add(new GiaoVien(s, ten, luong));
+        }
+        for(GiaoVien it : ds)   
+            System.out.println(it);
+    }
+}
