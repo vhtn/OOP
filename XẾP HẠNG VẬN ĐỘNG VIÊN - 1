@@ -1,0 +1,110 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class Time{
+        int h, m, s;
+        public Time(int h, int m, int s){
+            this.h = h;
+            this.m = m;
+            this.s = s;
+        }
+        public Time Chuanhoa1(String s){
+            String[] p = s.split(":");
+            return new Time(Integer.parseInt(p[0]), Integer.parseInt(p[1]), Integer.parseInt(p[2]));
+        }
+        public int thoiGian(){
+            return h * 3600 + m * 60 + s;
+        }
+        public Time Chuanhoa2(int x){
+            int h = x/3600;
+            x %= 3600;
+            int m = x/60;
+            int s = x%60;
+            return new Time(h, m, s);
+        }
+        public Time thayDoi(String a, String b){
+            Time t1 = Chuanhoa1(a);
+            Time t2 = Chuanhoa1(b);
+            int res = t1.thoiGian() - t2.thoiGian();
+            return Chuanhoa2(res);
+        }
+        @Override
+        public String toString(){
+            return String.format("%02d:%02d:%02d", h, m, s);
+        }
+    }
+    public static class VDV{
+        String ma, ht, ngay, xp, dd;
+        int rank;
+        Time t = new Time(0,0,0);
+        public VDV(String ma, String ht, String ngay, String xp, String dd){
+            this.ma = ma;
+            this.ht = ht;
+            this.ngay = ngay;
+            this.xp = xp;
+            this.dd = dd;
+        }
+        public Time thucTe(){
+           return t.thayDoi(dd, xp);
+        }
+        public Time uuTien(){
+            int nam = Integer.parseInt(ngay.substring(6));
+            if(2021 - nam < 18)
+                return t.Chuanhoa2(0);
+            if(2021 - nam < 25)
+                return t.Chuanhoa2(1);
+            if(2021 - nam < 32)
+                return t.Chuanhoa2(2);
+            return t.Chuanhoa2(3);
+        }
+        public int sx(){
+            return thucTe().thoiGian() - uuTien().thoiGian();
+        }
+        public Time thanhTich(){
+            return t.Chuanhoa2(sx());
+        }
+        @Override
+        public String toString(){
+            return ma + ' ' + ht + ' ' + thucTe()+ ' ' + uuTien() + ' '  + thanhTich() + ' ' + rank;
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<VDV> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for(int i = 0; i < n; i++){
+            String ma = String.format("VDV%02d", i+1);
+            String ht = sc.nextLine();
+            String ngay = sc.nextLine();
+            String s = sc.nextLine();
+            String e = sc.nextLine();
+            ds.add(new VDV(ma, ht, ngay, s, e));
+        }
+        Collections.sort(ds, new Comparator<VDV>(){
+            @Override
+            public int compare(VDV a, VDV b){
+                return a.sx() - b.sx();
+            }
+        });
+        int tt = -1;
+        int rankCur = 0;
+        for(int i = 0; i < n; i++){
+            if(ds.get(i).sx() == tt)
+                ds.get(i).rank = rankCur;
+            else{
+                ds.get(i).rank = i+1;
+                rankCur = i + 1;
+                tt = ds.get(i).sx();
+            }
+        }
+        Collections.sort(ds, new Comparator<VDV>(){
+            @Override
+            public int compare(VDV a, VDV b){
+                return a.ma.compareTo(b.ma);
+            }
+        });
+        for(VDV it : ds)
+            System.out.println(it);
+    }
+}
