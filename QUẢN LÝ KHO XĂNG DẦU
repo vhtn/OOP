@@ -1,0 +1,72 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class XangDau{
+        String s;
+        long sl;
+        public XangDau(String s, long sl){
+            this.s = s;
+            this.sl = sl;
+        }
+        public String hangSanXuat(){
+            String sb = s.substring(s.length() - 2);
+            if(sb.equals("BP"))
+                return "British Petro";
+            if(sb.equals("ES"))
+                return "Esso";
+            if(sb.equals("SH"))
+                return "Shell";
+            if(sb.equals("CA"))
+                return "Castrol";
+            if(sb.equals("MO"))
+                return "Mobil";
+            if(sb.equals("TN"))
+                return "Trong Nuoc";
+
+            return "";
+        }
+        public long donGia(){
+            if(s.charAt(0) == 'X')
+                return 128000;
+            if(s.charAt(0) == 'D')
+                return 11200;
+            if(s.charAt(0) == 'N')
+                return 9700;
+            return 0;
+        }
+        public long tong(){
+            return donGia() * sl;
+        }
+        public long thue(){
+            if(s.substring(s.length() - 2).equals("TN"))
+                return 0;
+            if(s.charAt(0) == 'X')
+                return Math.round(128000 * sl / 100.0 * 3);
+            if(s.charAt(0) == 'D')
+                return Math.round(11200 * sl /100.0 * 3.5);
+            if(s.charAt(0) == 'N')
+                return Math.round(9700 * sl / 100.0 * 2);
+            return 0;
+        }
+        public long thanhTien(){
+            return donGia() * sl + thue();
+        }
+        @Override
+        public String toString(){
+            return s + ' ' + hangSanXuat() + ' ' + donGia() + ' ' + thue() + ' '+ thanhTien();
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<XangDau> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        while(n-- > 0){
+            String s = sc.next();
+            long x = sc.nextLong();
+            ds.add(new XangDau(s, x));
+        }
+        for(XangDau i : ds)
+            System.out.println(i);
+    }
+}
