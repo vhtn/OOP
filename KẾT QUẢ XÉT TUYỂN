@@ -1,0 +1,64 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class TuyenSinh{
+        String ma, ht, ns;
+        double lt, th;
+        public TuyenSinh(String ma, String ht, String ns, double lt, double th){
+            this.ma = ma;
+            this.ht = ht;
+            this.ns = ns;
+            this.lt = lt;
+            this.th = th;
+        }
+        public int tuoi(){
+            int nam = Integer.parseInt(ns.substring(6));
+            return 2021 - nam;
+        }
+        public double diemthuong(){
+            if (lt >= 8 && th >= 8)
+                return 1;
+            if(lt >= 7.5 && th >= 7.5)
+                return 0.5;
+            return 0;
+        }
+        public int tong(){
+            double d = (lt + th)/2 + diemthuong();
+            if (d > 10)
+                return 10;
+            return (int) Math.round(d);
+        }
+        public String trangThai(){
+            if (tong() < 5)
+                return "Truot";
+            if(tong() <= 6)
+                return "Trung binh";
+            if(tong() == 7)
+                return "Kha";
+            if(tong()== 8)
+                return "Gioi";
+            return "Xuat sac";
+        }
+        @Override
+        public String toString(){
+            return ma + ' ' + ht + ' ' + tuoi() + ' ' + tong() + ' ' + trangThai();
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<TuyenSinh> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for(int i = 0; i < n; i++){
+            String ma = String.format("PH%02d", i+1);
+            String ten = sc.nextLine();
+            String ns = sc.nextLine();
+            double lt = sc.nextDouble();
+            double th = sc.nextDouble();
+            sc.nextLine();
+            ds.add(new TuyenSinh(ma, ten, ns, lt, th));
+        }
+        for(TuyenSinh i : ds)
+            System.out.println(i);
+    }
+}
