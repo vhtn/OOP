@@ -1,0 +1,66 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class Dien{
+        private String ma, sd;
+        private long cu, moi;
+        public Dien(String ma, String sd, long cu, long moi){
+            this.ma = ma;
+            this.sd = sd;
+            this.cu = cu;
+            this.moi= moi;
+        }
+        public long heSo(){
+            if(sd.equals("KD"))
+                return 3;
+            if(sd.equals("NN"))
+                return 5;
+            if(sd.equals("TT"))
+                return 4;
+            if(sd.equals("CN"))
+                return 2;
+            return 0;
+        }
+        public long thanhTien(){
+            return (moi - cu) * heSo() * 550;
+        }
+        public long phuTroi(){
+            long x = moi - cu;
+            if(x < 50)
+                return 0;
+            if(x <= 100)
+                return Math.round(thanhTien()/100.0 * 35);
+            return thanhTien();
+        }
+        public long tienPhaiTra(){
+            return phuTroi()+ thanhTien();
+        }
+        @Override
+        public String toString(){
+            return ma + " " + heSo() + " " + thanhTien() + " " + phuTroi() + " " + tienPhaiTra();
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Dien> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for(int i = 0; i < n; i++){
+            String ma = String.format("KH%02d", i+1);
+            String sd = sc.nextLine();
+            long cu = sc.nextLong();
+            long moi = sc.nextLong();
+            sc.nextLine();
+            Dien d = new Dien(ma, sd, cu, moi);
+            ds.add(d);
+        }
+        Collections.sort(ds, new Comparator<Dien>(){
+            @Override
+            public int compare(Dien a, Dien b){
+                return Long.compare(b.tienPhaiTra(),a.tienPhaiTra());
+            }    
+        });
+        for(Dien i: ds)
+            System.out.println(i);
+    }
+}
