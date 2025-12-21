@@ -1,0 +1,28 @@
+package code_ptit;
+import java.io.*;
+import java.util.*;
+public class NewClass {
+    public static class WordSet{
+        TreeSet<String> set = new TreeSet<>();
+        public WordSet(String filename) throws IOException{
+            Scanner sc = new Scanner(new File(filename));
+            while(sc.hasNext())
+                set.add(sc.next().toLowerCase());
+        }
+        public String difference(WordSet k){
+            TreeSet<String> hieu = new TreeSet<>(this.set);
+            hieu.removeAll(k.set);
+            String res = "";
+            for(String i : hieu)
+                res += i + ' ';
+            return res.trim();
+        }
+    }
+    public static void main(String[] args) throws IOException {
+        WordSet s1 = new WordSet("DATA1.in");
+        WordSet s2 = new WordSet("DATA2.in");
+        System.out.println(s1.difference(s2));
+        System.out.println(s2.difference(s1));
+    }
+}
+
