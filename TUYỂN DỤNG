@@ -1,0 +1,57 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static double chuanHoa(double s){
+        if(s > 10)
+            return s/10.0;
+        return s;
+    }
+    public static class TuyenDung{
+        String ma, ten;
+        double lt, th;
+        public TuyenDung(String ma, String ten, double lt, double th){
+            this.ma = ma;
+            this.ten = ten;
+            this.lt = lt;
+            this.th = th;
+        }
+        public double dtb(){
+            return (lt + th)/2.0;
+        }
+        public String xepLoai(){
+            if(dtb() < 5)
+                return "TRUOT";
+            if(dtb() < 8)
+                return "CAN NHAC";
+            if(dtb() < 9.5)
+                return "DAT";
+            return "XUAT SAC";
+        }
+        @Override
+        public String toString(){
+            return ma + " " + ten + " " + String.format("%.2f", dtb()) + " " + xepLoai();
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<TuyenDung> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for(int i = 0; i < n; i++){
+            String ma = String.format("TS%02d", i+1);
+            String ten = sc.nextLine();
+            double lt = chuanHoa(sc.nextDouble());
+            double th = chuanHoa(sc.nextDouble());
+            sc.nextLine();
+            ds.add(new TuyenDung(ma, ten, lt, th));
+        }
+        Collections.sort(ds, new Comparator<TuyenDung>(){
+            @Override
+            public int compare(TuyenDung a, TuyenDung b){
+                return Double.compare(b.dtb(), a.dtb());
+            }
+        });
+        for(TuyenDung h:ds)
+            System.out.println(h);
+    }
+}
