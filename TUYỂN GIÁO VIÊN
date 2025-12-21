@@ -1,0 +1,68 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class GiaoVien{
+        String ma, ten, mxt;
+        double th, cm;
+        public GiaoVien(String ma, String ten, String mxt, double th, double cm){
+            this.ma = ma;
+            this.ten = ten;
+            this.mxt = mxt;
+            this.th = th;
+            this.cm = cm;
+        }
+        public String mon(){
+            char c = mxt.charAt(0);
+            if(c == 'A')
+                return "TOAN";
+            if(c == 'B')
+                return "LY";
+            return "HOA";
+        }
+        public double uuTien(){
+            char c = mxt.charAt(1);
+            if(c == '1')
+                return 2;
+            if(c == '2')
+                return 1.5;
+            if(c == '3')
+                return 1;
+            return 0;
+        }
+        public double tong(){
+            return th * 2 + cm + uuTien();
+        }
+        public String kq(){
+            if(tong() >= 18)
+                return "TRUNG TUYEN";
+            return "LOAI";
+        }
+        @Override
+        public String toString(){
+            return ma + " " + ten + " " + mon() + " " + String.format("%.1f", tong()) + " " + kq();
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<GiaoVien> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for(int i = 0; i < n; i++){
+            String ma = String.format("GV%02d", i+1);
+            String ten = sc.nextLine();
+            String mxt = sc.nextLine();
+            double th = sc.nextDouble();
+            double cm = sc.nextDouble();
+            sc.nextLine();
+            ds.add(new GiaoVien(ma, ten, mxt, th, cm));
+        }
+        Collections.sort(ds, new Comparator<GiaoVien>(){
+            @Override
+            public int compare(GiaoVien a, GiaoVien b){
+                return Double.compare(b.tong(), a.tong());
+            }
+        });
+        for(GiaoVien h:ds)
+            System.out.println(h);
+    }
+}
