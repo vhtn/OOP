@@ -1,0 +1,22 @@
+package code_ptit;
+import java.io.*;
+import java.util.*;
+public class NewClass {
+    public static void main(String[] args) throws FileNotFoundException{
+        Scanner sc = new Scanner(new File("STRING.in"));
+        int n = Integer.parseInt(sc.nextLine());
+        while(n-- > 0){
+            String s = sc.nextLine();
+            String f = sc.nextLine();
+            int i = 0;
+            int x = f.length();
+            while(i <= s.length() - x){
+                String tmp = s.substring(i, i+x);
+                if(tmp.equals(f))
+                    System.out.print((i+1) + " ");
+                i += 1;
+            }
+            System.out.println();
+        }
+    }
+}
