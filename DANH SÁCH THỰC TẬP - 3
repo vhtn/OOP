@@ -1,0 +1,98 @@
+package code_ptit;
+import java.io.*;
+import java.util.*;
+public class NewClass {
+    public static class SinhVien{
+        String ma, ten, lop, email;
+        public SinhVien(String ma, String ten, String lop, String email){
+            this.ma = ma;
+            this.ten = ten;
+            this.lop = lop;
+            this.email= email;
+        }
+        public String chuanHoa(){
+            String[] w = ten.trim().toLowerCase().split("\\s+");
+            String res = "";
+            for(String i : w)
+                res += i.substring(0,1).toUpperCase() + i.substring(1) + ' ';
+            return res.trim();
+        }
+        @Override
+        public String toString(){
+            return ma + ' ' + chuanHoa() + ' ' + lop; 
+        }
+    }
+    public static class DoanhNghiep{
+        String ma, ten;
+        int sl;
+        public DoanhNghiep(String ma, String ten, int sl){
+            this.ma = ma;
+            this.ten = ten;
+            this.sl = sl;
+        }
+    }
+    public static class ThucTap{
+        String msv, mdn;
+        public ThucTap(String msv, String mdn){
+            this.msv = msv;
+            this.mdn = mdn;
+        }
+    }
+    public static void main(String[] args) throws FileNotFoundException{
+        Scanner sc1 = new Scanner(new File("SINHVIEN.in"));
+        ArrayList<SinhVien> ds1 = new ArrayList<>();
+        int n = Integer.parseInt(sc1.nextLine());
+        while(n-- > 0){
+            String ma = sc1.nextLine();
+            String ten = sc1.nextLine();
+            String lop = sc1.nextLine();
+            String email = sc1.nextLine();
+            ds1.add(new SinhVien(ma, ten, lop, email));
+        }
+        Collections.sort(ds1, new Comparator<SinhVien>(){
+            @Override
+            public int compare(SinhVien a, SinhVien b){
+                return a.ma.compareTo(b.ma);
+            }
+        });
+        Scanner sc2 = new Scanner(new File("DN.in"));
+        ArrayList<DoanhNghiep> ds2 = new ArrayList<>();
+        int m = Integer.parseInt(sc2.nextLine());
+        while(m-- > 0){
+            String ma = sc2.nextLine();
+            String ten = sc2.nextLine();
+            int sl = Integer.parseInt(sc2.nextLine());
+            ds2.add(new DoanhNghiep(ma, ten, sl));
+        }
+        Scanner sc3 = new Scanner(new File("THUCTAP.in"));
+        ArrayList<ThucTap> ds3 = new ArrayList<>();
+        int t = Integer.parseInt(sc3.nextLine());
+        while(t-- > 0){
+            String[] s = sc3.nextLine().split("\\s+");
+            ds3.add(new ThucTap(s[0], s[1]));
+        }
+        int q = Integer.parseInt(sc3.nextLine());
+        while(q-- > 0){
+            String s = sc3.nextLine();
+            int cnt = 0;
+            for(int i = 0; i < ds2.size(); i++){
+                if(ds2.get(i).ma.equals(s)){
+                    System.out.println("DANH SACH THUC TAP TAI " + ds2.get(i).ten + ":");
+                    cnt = ds2.get(i).sl;
+                    break;
+                }
+            }
+            for(int i = 0; i < ds1.size(); i++){
+                for(ThucTap tt : ds3){
+                    if(ds1.get(i).ma.equals(tt.msv) && tt.mdn.equals(s)){
+                        cnt -= 1;
+                        System.out.println(ds1.get(i));
+                        break;
+                    }
+                }
+                if(cnt == 0)
+                    break;
+            }
+        }
+    }
+}
