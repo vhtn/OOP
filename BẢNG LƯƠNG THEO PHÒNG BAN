@@ -1,0 +1,76 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class NhanVien{
+        String ma, ten, phong;
+        long luong, cong;
+        public NhanVien(String ma, String ten, String phong, long luong, long cong){
+            this.ma = ma;
+            this.ten = ten;
+            this.phong = phong;
+            this.luong = luong;
+            this.cong = cong;
+        }
+        public int heSo(){
+            char nhom = ma.charAt(0);
+            int nam = Integer.parseInt(ma.substring(1,3));
+            if(nhom == 'D' && 1 <= nam && nam <= 3)
+                return 8;
+            if((nhom == 'C' && 1 <= nam && nam <= 3) || (nhom == 'D' && 4 <= nam && nam <= 8))
+                return 9;
+            if(((nhom == 'A' || nhom == 'B') && 1 <= nam && nam <= 3) || (nhom == 'C' && 4 <= nam && nam <= 8))
+                return 10;
+            if((nhom == 'D' && 9 <= nam && nam <= 15) || (nhom == 'B' && 4 <= nam && nam <= 8))
+                return 11;
+            if((nhom == 'C' && 9 <= nam && nam <= 15) || (nhom == 'A' && 4 <= nam && nam <= 8))
+                return 12;
+            if((nhom == 'B' && 9 <= nam && nam <= 15) || (nhom == 'D' && nam >= 16))
+                return 13;
+            if((nhom == 'A' && 9 <= nam && nam <= 15) || (nhom == 'C' && nam >= 16))
+                return 14;
+            if(nhom == 'B' && nam >= 16)
+                return 16;
+            if(nhom == 'A' && nam >= 16)
+                return 20;
+            return 0;
+        }
+        public long luongThang(){
+            return luong * cong * heSo() * 1000;
+        }
+        @Override
+        public String toString(){
+            return ma + " " + ten + " " + luongThang();
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Map<String, String> ds1 = new HashMap<>();
+        ArrayList<NhanVien> ds2 = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        while(n-- > 0){
+            String s = sc.nextLine();
+            String[] w = s.split("\\s+", 2);
+            ds1.put(w[0], w[1]);
+        }
+        int m = sc.nextInt();
+        sc.nextLine();
+        while(m-- > 0){
+            String ma = sc.nextLine();
+            String ten = sc.nextLine();
+            long luong = sc.nextLong();
+            long cong = sc.nextLong();
+            sc.nextLine();
+            String pb = ma.substring(3);
+            String tenphong = ds1.get(pb);
+            ds2.add(new NhanVien(ma, ten, tenphong, luong, cong));
+        }
+        String p = sc.nextLine();
+        System.out.println("Bang luong phong " + ds1.get(p) + ":");
+        for(int i = 0; i < ds2.size(); i++){
+            String pb = ds2.get(i).ma.substring(3);
+            if(pb.equals(p))
+                System.out.println(ds2.get(i));
+        }
+    }
+}
