@@ -1,0 +1,59 @@
+package code_ptit;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+public class NewClass {
+    public static class Nuoc{
+        String ma, ten;
+        int cu, moi;
+        public Nuoc(String ma, String ten,int cu, int moi){
+            this.ma = ma;
+            this.ten = ten;
+            this.cu = cu;
+            this.moi = moi;
+        }
+        public int thanhTien(){
+            int x = moi - cu;
+            if(x <= 50){
+                int res = x * 100;
+                return res + (int) Math.round(res * 0.02);
+            }
+            if(x <= 100){
+                int res = 50 * 100 + (x-50) * 150;
+                return res + (int) Math.round(res * 0.03);
+            }
+            if(x > 100){
+                int res = 50 * 100 + 50 * 150 + (x-100) * 200;
+                return res + (int) Math.round(res * 0.05);
+            }
+            return 0;
+        }
+        @Override
+        public String toString(){
+            return ma + " " + ten + " " + thanhTien();
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Nuoc> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for(int i = 0; i < n; i++){
+            String ma = String.format("KH%02d", i+1);
+            String ten = sc.nextLine().trim();
+            int cu = sc.nextInt();
+            int moi = sc.nextInt();
+            sc.nextLine();
+            ds.add(new Nuoc(ma, ten, cu, moi));
+        }
+        Collections.sort(ds, new Comparator<Nuoc>(){
+            @Override
+            public int compare(Nuoc a, Nuoc b){
+                return Long.compare(b.thanhTien(), a.thanhTien());
+            }
+        });
+        for(Nuoc h:ds)
+            System.out.println(h);
+    }
+}
