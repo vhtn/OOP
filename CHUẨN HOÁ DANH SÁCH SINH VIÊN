@@ -1,0 +1,52 @@
+package code_ptit;
+import java.io.*;
+import java.util.*;
+public class NewClass {
+    public static int cnt = 0;
+    public static class SinhVien{
+        String ten, ma, lop, ns;
+        double gpa;
+        public SinhVien(String ten, String lop, String ns, double gpa){
+            this.ma = String.format("B20DCCN%03d", ++cnt);
+            this.ten = ten;
+            this.lop = lop;
+            this.ns = ns;
+            this.gpa = gpa;
+        }
+        public String hoTen(){
+            String[] w = ten.trim().toLowerCase().split("\\s+");
+            String ht = "";
+            for(int i = 0; i < w.length; i++){
+                ht += w[i].substring(0,1).toUpperCase() + w[i].substring(1);
+                if(i < w.length - 1)
+                    ht += ' ';
+            }
+            return ht;
+        }
+        public String ngaySinh(){
+            String[] s = ns.trim().split("/");
+            int d = Integer.parseInt(s[0]);
+            int m = Integer.parseInt(s[1]);
+            int y = Integer.parseInt(s[2]);
+            return String.format("%02d/%02d/%04d", d, m, y);
+        }
+        @Override
+        public String toString(){
+            return ma + ' ' + hoTen() + ' ' + lop + ' ' + ngaySinh() + ' ' + String.format("%.2f", gpa);
+        }
+    }
+    public static void main(String[] args) throws FileNotFoundException{
+        Scanner sc = new Scanner(new File("SINHVIEN.in"));
+        ArrayList<SinhVien> ds = new ArrayList<>();
+        int n = Integer.parseInt(sc.nextLine());
+        while(sc.hasNextLine()){
+            String ten = sc.nextLine();
+            String lop = sc.nextLine();
+            String ns = sc.nextLine();
+            double d = Double.parseDouble(sc.nextLine());
+            ds.add(new SinhVien(ten, lop, ns, d));
+        }
+        for(SinhVien it : ds)
+            System.out.println(it);
+    }
+}
