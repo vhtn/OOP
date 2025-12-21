@@ -1,0 +1,65 @@
+package code_ptit;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+public class NewClass {
+    public static class KhachSan{
+        String ma, ten, p, nhan, tra;
+        long dv;
+        public KhachSan(String ma, String ten, String p, String nhan, String tra, long dv){
+            this.ma = ma;
+            this.ten = ten;
+            this.p = p;
+            this.nhan = nhan;
+            this.tra = tra;
+            this.dv = dv;
+        }
+        public long ngay(){
+            DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate d1 = LocalDate.parse(nhan.trim(), f);
+            LocalDate d2 = LocalDate.parse(tra.trim(), f);
+            return ChronoUnit.DAYS.between(d1, d2) + 1;
+        }
+        public long thanhTien(){
+            char c = p.charAt(0);
+            if(c == '1')
+                return ngay() * 25 + dv;
+            if(c == '2')
+                return ngay() * 34 + dv;
+            if(c == '3')
+                return ngay() * 50 + dv;
+            if(c == '4')
+                return ngay() * 80 + dv;
+            return 0;
+        }
+        @Override
+        public String toString(){
+            return ma + " " + ten + " " + p + " " + ngay() + " " + thanhTien();
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<KhachSan> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for(int i = 0; i < n; i++){
+            String ma = String.format("KH%02d", i+1);
+            String ten = sc.nextLine().trim();
+            String p = sc.nextLine().trim();
+            String nhan = sc.nextLine().trim();
+            String tra = sc.nextLine().trim();
+            long dv = sc.nextLong();
+            sc.nextLine();
+            ds.add(new KhachSan(ma, ten, p, nhan, tra, dv));
+        }
+        Collections.sort(ds, new Comparator<KhachSan>(){
+            @Override
+            public int compare(KhachSan a, KhachSan b){
+                return Long.compare(b.thanhTien(), a.thanhTien());
+            }
+        });
+        for(KhachSan h:ds)
+            System.out.println(h);
+    }
+}
