@@ -1,0 +1,41 @@
+package code_ptit;
+import java.io.*;
+import java.util.*;
+public class NewClass {
+    public static class WordSet{
+        TreeSet<String> set = new TreeSet<>();
+        public WordSet(String filename) throws IOException {
+             Scanner sc = new Scanner(new File(filename));
+            while(sc.hasNext())
+                set.add(sc.next().trim().toLowerCase());
+        }
+        public String union(WordSet k){
+            TreeSet<String> hop = new TreeSet<>(this.set);
+            hop.addAll(k.set);
+            String res = "";
+            for(String i : hop)
+                res += i + ' ';
+            return res.trim();
+        }
+        public String intersection(WordSet k){
+            TreeSet<String> giao = new TreeSet<>(this.set);
+            giao.retainAll(k.set);
+            String res = "";
+            for(String i : giao)
+                res += i + ' ';
+            return res.trim();
+        }
+    }
+    public static void main(String[] args) throws IOException {
+        WordSet s1 = new WordSet("DATA1.in");
+        WordSet s2 = new WordSet("DATA2.in");
+        System.out.println(s1.union(s2));
+        System.out.println(s1.intersection(s2));
+    }
+    public static void main7717220(String[] args) throws IOException {
+        WordSet s1 = new WordSet("DATA1.in");
+        WordSet s2 = new WordSet("DATA2.in");
+        System.out.println(s1.union(s2));
+        System.out.println(s1.intersection(s2));
+    }
+}
