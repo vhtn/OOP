@@ -1,0 +1,48 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class HocPhan{
+        String ma, ten, gv, nhom;
+        public HocPhan(String ma, String ten, String gv, String nhom){
+            this.ma = ma;
+            this.ten = ten;
+            this.gv = gv;
+            this.nhom = nhom;
+        }
+        @Override
+        public String toString(){
+            return nhom + ' ' + gv;
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<HocPhan> ds = new ArrayList<>();
+        Map<String, String> mp = new HashMap<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        while(n-- > 0){
+            String ma = sc.nextLine();
+            String ten = sc.nextLine();
+            String nhom = sc.nextLine();
+            String gv = sc.nextLine();
+            ds.add(new HocPhan(ma, ten, gv, nhom));
+            mp.put(ma, ten);
+        }
+        Collections.sort(ds, new Comparator<HocPhan>(){
+            @Override
+            public int compare(HocPhan a, HocPhan b){
+                return a.nhom.compareTo(b.nhom);
+            }
+        });
+        int m = sc.nextInt();
+        sc.nextLine();
+        while(m-- > 0){
+            String ma = sc.nextLine();
+            System.out.println("Danh sach nhom lop mon " + mp.get(ma) + ":");
+            for(int i = 0; i < ds.size(); i++){
+                if(ds.get(i).ma.equals(ma))
+                    System.out.println(ds.get(i));
+            }
+        }
+    }
+}
