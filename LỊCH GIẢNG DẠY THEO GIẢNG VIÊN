@@ -1,0 +1,56 @@
+package code_ptit;
+import java.io.*;
+import java.util.*;
+public class NewClass {
+    public static int cnt = 0;
+    public static class LichGD{
+        String nhom, ma, gv, p;
+        int thu, kip;
+        public LichGD(String ma, int thu, int kip, String gv, String p){
+            this.nhom = String.format("HP%03d", ++cnt);
+            this.ma = ma;
+            this.thu = thu;
+            this.kip = kip;
+            this.gv = gv;
+            this.p = p;
+        }
+    }
+    public static void main(String[] args) throws FileNotFoundException{
+        Scanner sc1 = new Scanner(new File("MONHOC.in"));
+        Map<String, String> ds1 = new HashMap<>();
+        int n = Integer.parseInt(sc1.nextLine());
+        while(n-- > 0){
+            String ma = sc1.nextLine().trim();
+            String ten = sc1.nextLine().trim();
+            int tin = Integer.parseInt(sc1.nextLine());
+            ds1.put(ma, ten);
+        }
+        Scanner sc2 = new Scanner(new File("LICHGD.in"));
+        ArrayList<LichGD> ds2 = new ArrayList<>();
+        int m = Integer.parseInt(sc2.nextLine());
+        while(m-- > 0){
+            String ma = sc2.nextLine();
+            int thu = Integer.parseInt(sc2.nextLine());
+            int kip = Integer.parseInt(sc2.nextLine());
+            String ten = sc2.nextLine().trim();
+            String p = sc2.nextLine().trim();
+            ds2.add(new LichGD(ma, thu, kip, ten, p));
+        }
+        String q = sc2.nextLine().trim(); 
+        System.out.println("LICH GIANG DAY GIANG VIEN " + q + ":");
+        Collections.sort(ds2, new Comparator<LichGD>(){
+            @Override
+            public int compare(LichGD a, LichGD b){
+                if(a.thu != b.thu)
+                    return a.thu - b.thu;
+                if(a.kip != b.kip)
+                    return a.kip - b.kip;
+                return a.gv.compareTo(b.gv);
+            }
+        });
+        for(int i = 0; i < ds2.size(); i++){
+            if(ds2.get(i).gv.equals(q))
+                System.out.println(ds2.get(i).nhom + " " + ds1.get(ds2.get(i).ma) + " " + ds2.get(i).thu + " " + ds2.get(i).kip + " " + ds2.get(i).p);
+        }
+    }
+}
