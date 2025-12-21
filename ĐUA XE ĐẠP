@@ -1,0 +1,53 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class DuaXe{
+        String ten, dv, td;
+        int h, m;
+        public DuaXe(String ten, String dv, String td){
+            this.ten = ten;
+            this.dv = dv;
+            String[] s = td.trim().split(":");
+            this.h = Integer.parseInt(s[0]);
+            this.m = Integer.parseInt(s[1]);
+        }
+        public String ma(){
+            String[] s1 = ten.trim().split("\\s+");
+            String[] s2 = dv.trim().split("\\s+");
+            String res = "";
+            for(String i: s2)
+                res += i.charAt(0);
+            for(String i: s1)
+                res += i.charAt(0);
+            return res;
+        }
+        public double vt(){
+            double tg = ((h - 6) * 60 + m)/60.0;
+            return 120.0/tg;
+        }
+        @Override
+        public String toString(){
+            return ma() + " " + ten + " " + dv + " " + (int)Math.round(vt()) + " Km/h";
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<DuaXe> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        for(int i = 0; i < n; i++){
+            String ten = sc.nextLine();
+            String dv = sc.nextLine();
+            String tg = sc.nextLine();
+            ds.add(new DuaXe(ten, dv, tg));
+        }
+        Collections.sort(ds, new Comparator<DuaXe>(){
+            @Override
+            public int compare(DuaXe a, DuaXe b){
+                return Double.compare(b.vt(), a.vt());
+            }
+        });
+        for(DuaXe h:ds)
+            System.out.println(h);
+    }
+}
