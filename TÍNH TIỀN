@@ -1,0 +1,45 @@
+package code_ptit;
+import java.util.*;
+public class NewClass {
+    public static class HangHoa{
+        String ma, ten;
+        long sl, dg, ck;
+        public HangHoa(String ma, String ten, long sl, long dg, long ck){
+            this.ma = ma;
+            this.ten = ten;
+            this.sl = sl;
+            this.dg = dg;
+            this.ck = ck;
+        }
+        public long tong(){
+            return dg * sl - ck;
+        }
+        @Override
+        public String toString(){
+            return ma + " " + ten + " " + sl + " " + dg + " " + ck + " " + tong();
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<HangHoa> ds = new ArrayList<>();
+        int n = sc.nextInt();
+        sc.nextLine();
+        while(n-- > 0){
+            String ma = sc.nextLine();
+            String ten = sc.nextLine();
+            long sl = sc.nextLong();
+            long dg = sc.nextLong();
+            long ck = sc.nextLong();
+            sc.nextLine();
+            ds.add(new HangHoa(ma, ten, sl, dg, ck));
+        }
+        Collections.sort(ds, new Comparator<HangHoa>(){
+            @Override
+            public int compare(HangHoa a, HangHoa b){
+                return Long.compare(b.tong(), a.tong());
+            }
+        });
+        for(HangHoa h:ds)
+            System.out.println(h);
+    }
+}
